@@ -179,8 +179,7 @@ class Controller {
         ErrorController = require(errorControllerPath);
       } else {
         // TODO for debug only. To be removed
-        //ErrorController = requireModule('Model/ErrorController');
-        ErrorController = requireController('/home/tabjy/Documents/NodeJS/TabJS2/node_modules/tabjs/Model/ErrorController.js');
+        ErrorController = requireModule('Model/ErrorController');
       }
       var errorController = new ErrorController(error, statusCode, this.request, this.response, this.urlVariable);
       errorController.runController();
