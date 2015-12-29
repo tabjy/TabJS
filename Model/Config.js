@@ -40,7 +40,7 @@ class Config {
     this.http.session.lifetime = Mathjs.eval(this.http.session.lifetime);
     this.server.timeout = Mathjs.eval(this.server.timeout);
 
-    if (FileSystemUtil.typeSync(Path.join(RootPath, this.server.uploadDir) !== 'directory')) {
+    if (FileSystemUtil.typeSync(Path.join(RootPath, this.server.uploadDir)) !== 'directory') {
       Log.warn('upload directory does not exist!', 'System');
       Fs.mkdirSync(Path.join(RootPath, this.server.uploadDir));
       Log.success('upload directory created! ' + Path.join(RootPath, this.server.uploadDir), 'System');
