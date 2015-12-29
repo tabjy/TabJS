@@ -1,0 +1,40 @@
+
+{
+  "name": "tabjs",
+  "description": "TabJS is a simple Web Framework",
+  "version": "0.3.0",
+  "maintainers": [
+    {
+      "name": "tabjy",
+      "email": "admin@tabjy.com"
+    }
+  ],
+  "dependencies": {
+    "colors": "1.1.2",
+    "ejs": "2.3.4",
+    "formidable": "1.0.17",
+    "jade": "1.11.0",
+    "mathjs": "2.5.0",
+    "minimist": "1.2.0",
+    "mongodb": "2.0.52"
+  },
+  "bugs": {
+    "url": "https://github.com/Tabjy/TabJS/issues"
+  },
+  "homepage": "https://github.com/Tabjy/TabJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tabjy/TabJS.git"
+  },
+  "author": {
+    "name": "tabjy",
+    "email": "admin@tabjy.com",
+    "url": "http://www.tabjy.com"
+  },
+  "license": "MIT"
+}
+

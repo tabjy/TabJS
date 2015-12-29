@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "saveSession": true,
+  "rebootOnUncaught": true,
+  "autoReboot": {
+    "enabled": true,
+    "timeInterval": "24 * 3600",
+    "exceedRAM": "4 * 1024 * 1024"
+  }
+}
