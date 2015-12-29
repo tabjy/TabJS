@@ -1,0 +1,5 @@
+{
+  "enabled": false,
+  "entrance": "/dashboard",
+  "passphrase": "password"
+}

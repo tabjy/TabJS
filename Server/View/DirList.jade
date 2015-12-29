@@ -1,0 +1,142 @@
+doctype html
+html(lang="en")
+  head
+    title Index of #{dirPath}
+    style.
+      body{
+        background-color: #F0F0F0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 10pt;
+        padding-top: 50px;
+        text-align: left;
+      }
+      a { 
+        color: #666;
+        text-decoration: none;
+        border-bottom: 1px dashed #666;
+        cursor: pointer;
+      }
+      a:hover {
+        border-bottom: 1px solid #666;
+      }
+      table{
+        width: 100%;
+      }
+      .container {
+        margin: auto;
+        max-width: 1000px;
+        min-width: 200px;
+      }
+      .box hr {
+        diplay: block;
+        border: none;
+        border-bottom: 1px dashed #ccc;
+      }
+      .box {
+        background-color: #fbfbfb;
+        border: 1px solid #AAA;
+        border-bottom: 1px solid #888;
+        border-radius: 3px;
+        color: black;
+        box-shadow: 0px 2px 2px #AAA;
+        padding: 20px;
+      }
+      .box h1, .box h2 {
+        display: block;
+        text-align: left;
+      }
+      .box h1 {
+        color: #666;
+        font-weight: normal;
+        font-size: 50px;
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        line-height:50px
+      }
+      .box h2 {
+        color: #666;
+        font-weight: normal;
+        font-size: 1.5em;
+      }
+      tr:hover {
+        background-color: #F0F0F0;
+      }
+      .serverinfo {
+        display: block;
+        text-align: center;
+        color: #999;
+        font-weight: normal;
+        margin-top: 20px;
+      }
+  body
+    .container
+      .box
+        h1 Index of...
+        h2 #{dirPath}
+        hr
+        table
+          #display
+          tr
+            th Name
+            if display.modifiedTime
+              th(align="right") Modified Time
+            if display.accessTime
+              th(align="right") Access Time
+            if display.changeTime
+              th(align="right") Change Time
+            if display.birthTime
+              th(align="right") Birth Time
+            if display.size
+              th(align="right") Size
+            if display.mimetype
+              th(align="right") MIME Type
+            if display.description
+              th(align="right") Description
+
+          #display
+          tr
+            td 
+              a(href='../') ../
+            if display.modifiedTime
+              td(align="right") -
+            if display.accessTime
+              td(align="right") -
+            if display.changeTime
+              td(align="right") -
+            if display.birthTime
+              td(align="right") -
+            if display.size
+              td(align="right") -
+            if display.mimetype
+              td(align="right") -
+            if display.description
+              td(align="right") -
+          
+          #list
+          each item in list
+            #display
+            tr
+              td
+                a(href="#{item.base}") #{item.base}
+              if display.modifiedTime
+                td(align="right") #{item.mtime}
+              if display.accessTime
+                td(align="right") #{item.atime}
+              if display.changeTime
+                td(align="right") #{item.ctime}
+              if display.birthTime
+                td(align="right") #{item.birthtime}
+              if display.size
+                td(align="right") #{item.size}
+              if display.mimetype
+                td(align="right") #{item.mime}
+              if display.description
+                td(align="right") #{item.description}
+          
+
+
+    .serverinfo
+      |Powered by 
+      a(href='https://github.com/Tabjy/TabJS') TabJS 
+      |version 0.3.0 (build 2015121901)
