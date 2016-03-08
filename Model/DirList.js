@@ -120,7 +120,7 @@ class DirList extends Controller {
   //override
   mainLogic() {
     var self = this;
-    this.assign('dirPath', this.pathname);
+    this.assign('dirPath', decodeURIComponent(this.pathname));
     this.assign('display', Config.server.listDirectory.display);
     FileSystemUtil.list(this.dirPath).then(function(list) {
       //re-arrange file list
@@ -131,17 +131,18 @@ class DirList extends Controller {
         list[i].mtime = DateUtil.format(list[i].mtime, 'yyyy-MM-dd hh:mm:ss');
         list[i].ctime = DateUtil.format(list[i].ctime, 'yyyy-MM-dd hh:mm:ss');
         list[i].birthtime = DateUtil.format(list[i].birthtime, 'yyyy-MM-dd hh:mm:ss');
+        list[i].href = encodeURIComponent(list[i].base);
 
         if (list[i].type === 'file') {
           list[i].size = FileSystemUtil.formatBytes(list[i].size);
           list[i].mime = Config.http.mime[list[i].ext] || '-';
           list[i].description = Extdescription[list[i].ext] || '-';
-          fileList.push(list[i]);
         } else {
+          list[i].href += '/';
           list[i].mime = '-';
           list[i].description = '-';
-          dirList.push(list[i]);
         }
+        fileList.push(list[i]);
       }
       let result = dirList.concat(fileList);
       self.assign('list', result);

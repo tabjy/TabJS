@@ -23,8 +23,6 @@ class Router {
     this.isBackstage = null;
     this.redirectLocation = null;
 
-    // /this.pathname = unescape(this.pathname);
-
     this.backstage();
   }
 
@@ -193,26 +191,30 @@ class Router {
             controller.handleError(controllerLoadingError, '500');
           }
         } else {
-          staticActionMap.notfound();
+          var Controller = requireModule('Model/Controller');
+          var controller = new Controller(self.request, self.response, self.controllerPath, self.urlVariable);
+          var error = new Error();
+          error.stack = '403 Forbidden: ' + self.pathname;
+          controller.handleError(error, '403');
         }
       },
       'notfound': function() {
         var Controller = requireModule('Model/Controller');
         var controller = new Controller(self.request, self.response, self.controllerPath, self.urlVariable);
         var error = new Error();
-        error.stack = 'Error stack not available';
+        error.stack = '404 Not Found: ' + self.pathname;
         controller.handleError(error, '404');
       }
     };
 
-    var resourcePath = Path.join(RootPath, '/Server/Resource/', this.pathname);
+    var resourcePath = Path.join(RootPath, '/Server/Resource/', decodeURIComponent(this.pathname));
 
     if (this.targetType === 'directory') {
       let indexFile = Config.server.indexFile;
       for (let i = 0; i < indexFile.length; i++) {
-        let assumingResourcePath = resourcePath + indexFile[i];
+        let assumedResourcePath = resourcePath + indexFile[i];
 
-        if (FileSystemUtil.typeSync(assumingResourcePath) === 'file') {
+        if (FileSystemUtil.typeSync(assumedResourcePath) === 'file') {
           this.redirectLocation = this.pathname + indexFile[i];
           staticActionMap.redirect();
           return;
@@ -220,7 +222,7 @@ class Router {
       }
 
       //check if file exist, then make a 302 jump
-      resourcePath = Path.join(RootPath, '/Server/Resource/', this.pathname);
+      resourcePath = Path.join(RootPath, '/Server/Resource/', decodeURIComponent(this.pathname));
       resourcePath = resourcePath.substring(0, resourcePath.length - 1);
       if (FileSystemUtil.typeSync(resourcePath) === 'file') {
         this.redirectLocation = this.pathname.substring(0, this.pathname.length - 1);
@@ -228,7 +230,7 @@ class Router {
         return;
       }
 
-      resourcePath = Path.join(RootPath, '/Server/Resource/', this.pathname);
+      resourcePath = Path.join(RootPath, '/Server/Resource/', decodeURIComponent(this.pathname));
       if (FileSystemUtil.typeSync(resourcePath) === 'directory') {
         if (true) {
           this.dirPath = resourcePath;
