@@ -178,7 +178,6 @@ class Controller {
         let errorControllerPath = Path.join(RootPath, '/Server/Controller/', Config.server.customErrorController.controllerPath);
         ErrorController = require(errorControllerPath);
       } else {
-        // TODO for debug only. To be removed
         ErrorController = requireModule('Model/ErrorController');
       }
       var errorController = new ErrorController(error, statusCode, this.request, this.response, this.urlVariable);
@@ -292,7 +291,9 @@ class Controller {
     }
 
     try {
-      var content = Jade.renderFile(this.jadePath, this.templateData);
+      var merged = this.templateData;
+      merged.pretty = Config.general.debug;
+      var content = Jade.renderFile(this.jadePath, merged);
       this.end(content);
     } catch (error) {
       this.handleError(error, '500');
