@@ -20,7 +20,7 @@ const Extdescription = {
   "flac": "Free Lossless Audio Codec File",
   "kar": "Karaoke files",
   "m4p": "iTunes Music Store Audio File",
-  "mid": "Musical Instrument Digital Interface MIDI-sequention Sound",
+  "mid": "MIDI-sequention Sound",
   "mmf": "Synthetic Music Mobile Application File",
   "mp3": "MPEG Layer 3 Audio",
   "ogg": "Ogg Vorbis Audio File",
@@ -91,7 +91,7 @@ const Extdescription = {
   "vob": "Video Object File",
   "wlmp": "Windows Live Movie Maker",
   "css": "Cascading Style Sheets",
-  "html": "Hypertext Markup Language with a client-side image map",
+  "html": "Hypertext Markup Language File",
   "json": "JavaScript Object Notation File",
   "js": "JavaScript File",
   "md": "Markdown File",
@@ -146,6 +146,8 @@ class DirList extends Controller {
       }
       let result = dirList.concat(fileList);
       self.assign('list', result);
+      self.assign('version', Config.general.version);
+      self.assign('build', Config.general.build);
       self.renderJade();
       //self.end(JSON.stringify(result));
     }).catch(function(err) {
